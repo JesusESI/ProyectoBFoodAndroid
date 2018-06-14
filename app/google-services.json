@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "344888110789",
+    "firebase_url": "https://tfg-bfood.firebaseio.com",
+    "project_id": "tfg-bfood",
+    "storage_bucket": "tfg-bfood.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344888110789:android:b229c42cbc7c5d51",
+        "android_client_info": {
+          "package_name": "jesus.com.proyectobfoodandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "344888110789-ki0uvvk9subhk9honq350pqh2ofg85ha.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "344888110789-ki0uvvk9subhk9honq350pqh2ofg85ha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbv4SCCzrryzb5C-tcu_hYpHtFotQIxSQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
