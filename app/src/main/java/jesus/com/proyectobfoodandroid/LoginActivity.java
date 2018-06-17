@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Si el usuario se ha logueado con anterioridad pasamos directamente al actiovity principal.
         if (FirebaseManager.getFirebaseSingleton().comprobarUsuario() == true) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            startActivity(new Intent(LoginActivity.this, PrincipalActivity.class));
             finish();
         }
 
@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                                             Toast.makeText(LoginActivity.this, getString(R.string.authFailed), Toast.LENGTH_LONG).show();
                                         }
                                     } else {
-                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        Intent intent = new Intent(LoginActivity.this, PrincipalActivity.class);
                                         startActivity(intent);
                                         finish();
                                     }
@@ -96,6 +96,5 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 }
