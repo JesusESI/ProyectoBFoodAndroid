@@ -26,6 +26,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button signUpButton;
     private ProgressBar progressBar;
 
+    private String email;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,9 @@ public class LoginActivity extends AppCompatActivity {
 
         // Si el usuario se ha logueado con anterioridad pasamos directamente al actiovity principal.
         if (FirebaseManager.getFirebaseSingleton().comprobarUsuario() == true) {
-            startActivity(new Intent(LoginActivity.this, PrincipalActivity.class));
+            Intent instance = new Intent(LoginActivity.this, PrincipalActivity.class);
+            instance.putExtra("email", FirebaseManager.getFirebaseSingleton().getLogUser());
+            startActivity(instance);
             finish();
         }
 
@@ -51,13 +55,16 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String email = inputEmail.getText().toString();
+                final String email = inputEmail.getText().toString();
                 final String password = inputPassword.getText().toString();
 
                 // Logueamos al usuario
                 FirebaseAuth auth = FirebaseManager.getFirebaseSingleton().signIn(email, password, LoginActivity.this);
 
                 if(auth != null) {
+                    // Modificamos el email del usuario logeado en la persistencia.
+                    FirebaseManager.getFirebaseSingleton().setUserLog(email);
+
                     //authenticate user
                     auth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
@@ -69,13 +76,11 @@ public class LoginActivity extends AppCompatActivity {
                                     progressBar.setVisibility(View.GONE);
                                     if (!task.isSuccessful()) {
                                         // there was an error
-                                        if (password.length() < 6) {
-                                            inputPassword.setError(getString(R.string.minimumPassword));
-                                        } else {
-                                            Toast.makeText(LoginActivity.this, getString(R.string.authFailed), Toast.LENGTH_LONG).show();
-                                        }
+                                        Toast.makeText(LoginActivity.this, getString(R.string.authFailed), Toast.LENGTH_LONG).show();
                                     } else {
                                         Intent intent = new Intent(LoginActivity.this, PrincipalActivity.class);
+                                        // Pasamos al activity principal el email del usuario logeado.
+                                        intent.putExtra("email", email);
                                         startActivity(intent);
                                         finish();
                                     }

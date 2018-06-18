@@ -12,6 +12,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import jesus.com.proyectobfoodandroid.LoginActivity;
+import jesus.com.proyectobfoodandroid.Objects.User;
 import jesus.com.proyectobfoodandroid.R;
 import jesus.com.proyectobfoodandroid.RegisterActivity;
 
@@ -19,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,8 +28,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static android.content.ContentValues.TAG;
@@ -41,6 +46,11 @@ public class FirebaseManager {
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDatabase;
 
+    // UserLog.
+    private String userLog;
+
+    // Listado de datos.
+    ArrayList usuarios = new ArrayList();
 
     // Constructor.
     private FirebaseManager() {
@@ -67,6 +77,15 @@ public class FirebaseManager {
         return userAuthenticated;
     }
 
+    // Método que da la información del usuario logueado.
+    public String getLogUser() {
+        return this.userLog;
+    }
+
+    public void setUserLog(String email) {
+        this.userLog = email;
+    }
+
     // Método que permite entrar a la aplicación
     public FirebaseAuth signIn(String email, String password, final Context context) {
         // Comprobamos que los campos esten llenos para poder iniciar.
@@ -82,7 +101,20 @@ public class FirebaseManager {
             auth = null;
         }
 
+        if (password.length() < 6) {
+            Toast.makeText(context, "El tamaño de la contraseña debe ser de al menos 6 caracteres.", Toast.LENGTH_SHORT).show();
+            auth = null;
+        }
+
+        // Usuario logueado.
+        this.userLog = email;
+
         return auth;
+    }
+
+    public void logOut() {
+        this.userLog = null;
+        mAuth.signOut();
     }
 
     // Método para registrar nuevos usuarios.
@@ -143,28 +175,32 @@ public class FirebaseManager {
 
         // Guardamos dentro de usuarios el objeto.
         ref.push().setValue(nuevo);
-
     }
 
-    public void readUsers() {
-        // Crearemos un eventListener para tener los datos continuamente actualizados en tiempo real.
-        DatabaseReference ref = mDatabase.getReference("Usuarios");
-        // Listener.
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // Devuelve un HashMap debemos recorrerlo y guardar los datos.
-                for (DataSnapshot data: dataSnapshot.getChildren()) {
-                    Log.d(TAG, data.getValue().toString());
-                }
-            }
+    public List readUsers() {
+        if (usuarios.isEmpty()) {
+            // Crearemos un eventListener para tener los datos continuamente actualizados en tiempo real.
+            DatabaseReference ref = mDatabase.getReference("Usuarios");
+            // Listener.
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    // Devuelve un HashMap debemos recorrerlo y guardar los datos.
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                        Log.d(TAG, data.getValue().toString());
+                        usuarios.add(data.getValue());
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", databaseError.toException());
-            }
-        });
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Failed to read value
+                    Log.w(TAG, "Failed to read value.", databaseError.toException());
+                }
+            });
+        }
+        return usuarios;
     }
 
 }

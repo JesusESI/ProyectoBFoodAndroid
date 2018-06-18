@@ -1,5 +1,6 @@
 package jesus.com.proyectobfoodandroid;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +11,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.io.Serializable;
+
+import jesus.com.proyectobfoodandroid.Firebase.FirebaseManager;
+import jesus.com.proyectobfoodandroid.Objects.User;
+
 public class PrincipalActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Toolbar toolbar;
@@ -18,6 +24,10 @@ public class PrincipalActivity extends AppCompatActivity implements View.OnClick
     private ImageButton rankingButton ;
     private ImageButton achievementsButton;
     private ImageButton mapButton;
+
+    // Variable de sesion.
+    private User userLog;
+    private String emailUserLog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +51,12 @@ public class PrincipalActivity extends AppCompatActivity implements View.OnClick
         rankingButton.setOnClickListener(this);
         achievementsButton.setOnClickListener(this);
         mapButton.setOnClickListener(this);
+
+
+        // Creamos el objeto Usuario del usuario logeado, si es la primera vez que se conecta.
+        userLog = new User(getIntent().getStringExtra("email"));
+        emailUserLog = userLog.getEmail();
+
     }
 
     @Override
@@ -52,8 +68,11 @@ public class PrincipalActivity extends AppCompatActivity implements View.OnClick
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.options:
-                Toast.makeText(this, "Has pulsado el botón desplegar las opciones", Toast.LENGTH_LONG).show();
+            case R.id.exit:
+                //Toast.makeText(this, "Has pulsado el botón desplegar las opciones", Toast.LENGTH_LONG).show();
+                Intent loginInstance = new Intent(PrincipalActivity.this, LoginActivity.class);
+                FirebaseManager.getFirebaseSingleton().logOut();
+                startActivity(loginInstance);
                 break;
             case R.id.info:
                 Toast.makeText(this, "Has pulsado el botón desplegar la información de la app.", Toast.LENGTH_LONG).show();
@@ -67,7 +86,10 @@ public class PrincipalActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.profileButton:
-                Toast.makeText(this, "Ha elegido ver su perfil", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "Ha elegido ver su perfil", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(PrincipalActivity.this, DatosUsuarioActivity.class);
+                intent.putExtra("userLog", emailUserLog);
+                startActivity(intent);
                 break;
             case R.id.notificationButton:
                 Toast.makeText(this, "Ha elegido ver las notificaciones", Toast.LENGTH_LONG).show();

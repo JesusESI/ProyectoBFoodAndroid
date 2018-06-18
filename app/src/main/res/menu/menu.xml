@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:icon="@drawable/close"
-        android:title="options"
-        android:id="@+id/options"
+        android:title="exit"
+        android:id="@+id/exit"
         app:showAsAction="always"
         />
 
