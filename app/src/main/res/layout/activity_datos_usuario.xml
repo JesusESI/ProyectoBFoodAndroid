@@ -15,136 +15,86 @@
         android:id="@+id/imageView"
         android:layout_width="190dp"
         android:layout_height="201dp"
-        android:layout_marginBottom="44dp"
         android:layout_marginEnd="97dp"
         android:layout_marginStart="97dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/textApodoData"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:srcCompat="@drawable/aux_user" />
 
-    <TextView
+    <EditText
         android:id="@+id/textApodo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="19dp"
-        android:layout_marginEnd="77dp"
-        android:layout_marginStart="66dp"
-        android:layout_marginTop="40dp"
-        android:text="Apodo:"
-        android:textSize="18sp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="34dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
         app:layout_constraintBottom_toTopOf="@+id/textPosition"
-        app:layout_constraintEnd_toStartOf="@+id/textApodoData"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <TextView
-        android:id="@+id/textApodoData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="110dp"
-        android:layout_marginTop="40dp"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        tools:text="TextView" />
-
-    <TextView
+    <EditText
         android:id="@+id/textPosition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="67dp"
-        android:layout_marginStart="63dp"
-        android:layout_marginTop="20dp"
-        android:text="Posición:"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/textPositionData"
+        android:layout_marginEnd="84dp"
+        android:layout_marginStart="85dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintBottom_toTopOf="@+id/textPoints"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textApodo" />
 
-    <TextView
+    <EditText
         android:id="@+id/textPoints"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="73dp"
-        android:layout_marginStart="67dp"
-        android:layout_marginTop="20dp"
-        android:text="Puntos:"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/textPointsData"
+        android:layout_marginBottom="1dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginStart="85dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintBottom_toTopOf="@+id/textAchievements"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textPosition" />
 
-    <TextView
-        android:id="@+id/textPositionData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="110dp"
-        android:layout_marginTop="20dp"
-        android:text="TextView"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textApodoData" />
-
-    <TextView
-        android:id="@+id/textPointsData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="110dp"
-        android:layout_marginTop="20dp"
-        android:text="TextView"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPositionData" />
-
-    <TextView
+    <EditText
         android:id="@+id/textAchievements"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="74dp"
-        android:layout_marginStart="66dp"
-        android:layout_marginTop="20dp"
-        android:text="Logros:"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/textAchievementsData"
+        android:layout_marginBottom="1dp"
+        android:layout_marginEnd="85dp"
+        android:layout_marginStart="84dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintBottom_toTopOf="@+id/textNotifications"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textPoints" />
 
-    <TextView
-        android:id="@+id/textAchievementsData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="110dp"
-        android:layout_marginTop="20dp"
-        android:text="TextView"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPointsData" />
-
-    <TextView
+    <EditText
         android:id="@+id/textNotifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="23dp"
-        android:layout_marginStart="57dp"
-        android:layout_marginTop="20dp"
-        android:text="Notificaciones:"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/textNotificationsData"
+        android:layout_marginBottom="27dp"
+        android:layout_marginEnd="85dp"
+        android:layout_marginStart="84dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textAchievements" />
-
-    <TextView
-        android:id="@+id/textNotificationsData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="110dp"
-        android:layout_marginTop="20dp"
-        android:text="TextView"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textAchievementsData" />
 
 </android.support.constraint.ConstraintLayout>

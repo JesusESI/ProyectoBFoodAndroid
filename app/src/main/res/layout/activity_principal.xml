@@ -67,4 +67,68 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:srcCompat="@drawable/iconousuario" />
 
+    <TextView
+        android:id="@+id/textPerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginStart="88dp"
+        android:text="Perfil"
+        app:layout_constraintBottom_toTopOf="@+id/rankingButton"
+        app:layout_constraintEnd_toStartOf="@+id/textNotifications"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileButton" />
+
+    <TextView
+        android:id="@+id/textNotifications"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="65dp"
+        android:layout_marginStart="55dp"
+        android:text="Notificaciones"
+        app:layout_constraintBottom_toTopOf="@+id/achievementsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textPerfil"
+        app:layout_constraintTop_toBottomOf="@+id/notificationButton" />
+
+    <TextView
+        android:id="@+id/textRanking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="88dp"
+        android:text="Ranking"
+        app:layout_constraintBottom_toTopOf="@+id/mapButton"
+        app:layout_constraintEnd_toStartOf="@+id/textLogros"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rankingButton" />
+
+    <TextView
+        android:id="@+id/textLogros"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginStart="65dp"
+        android:text="Logros"
+        app:layout_constraintBottom_toTopOf="@+id/mapButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textRanking"
+        app:layout_constraintTop_toBottomOf="@+id/achievementsButton" />
+
+    <TextView
+        android:id="@+id/textMapaEventos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="137dp"
+        android:layout_marginStart="140dp"
+        android:text="MapaEventos"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mapButton" />
+
 </android.support.constraint.ConstraintLayout>

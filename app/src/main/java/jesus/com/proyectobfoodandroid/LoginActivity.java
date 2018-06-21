@@ -102,4 +102,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        // terminamos la app.
+        finish();
+    }
 }

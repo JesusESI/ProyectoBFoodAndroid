@@ -12,6 +12,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import jesus.com.proyectobfoodandroid.LoginActivity;
+import jesus.com.proyectobfoodandroid.MapsActivity;
 import jesus.com.proyectobfoodandroid.Objects.User;
 import jesus.com.proyectobfoodandroid.R;
 import jesus.com.proyectobfoodandroid.RegisterActivity;
@@ -51,6 +52,12 @@ public class FirebaseManager {
 
     // Listado de datos.
     ArrayList usuarios = new ArrayList();
+    ArrayList logros = new ArrayList();
+    ArrayList eventos = new ArrayList();
+
+    public FirebaseDatabase getmDatabase() {
+        return mDatabase;
+    }
 
     // Constructor.
     private FirebaseManager() {
@@ -178,7 +185,7 @@ public class FirebaseManager {
     }
 
     public List readUsers() {
-        if (usuarios.isEmpty()) {
+
             // Crearemos un eventListener para tener los datos continuamente actualizados en tiempo real.
             DatabaseReference ref = mDatabase.getReference("Usuarios");
             // Listener.
@@ -199,8 +206,54 @@ public class FirebaseManager {
                     Log.w(TAG, "Failed to read value.", databaseError.toException());
                 }
             });
-        }
+
         return usuarios;
+    }
+
+    public ArrayList readLogros() {
+        if (logros.isEmpty()) {
+            DatabaseReference ref = mDatabase.getReference("Logros");
+
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                        Log.d(TAG, data.getValue().toString());
+                        logros.add(data.getValue());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.w(TAG, "Failed to read value.", databaseError.toException());
+                }
+            });
+        }
+        return logros;
+    }
+
+    public ArrayList readEventos(Context c) {
+
+            // Crearemos un eventListener para tener los datos continuamente actualizados en tiempo real.
+            DatabaseReference ref = mDatabase.getReference("Eventos");
+            // Listener.
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    // Devuelve un HashMap debemos recorrerlo y guardar los datos.
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                        Log.d(TAG, data.getValue().toString());
+                        eventos.add(data.getValue());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Failed to read value
+                    Log.w(TAG, "Failed to read value.", databaseError.toException());
+                }
+            });
+        return eventos;
     }
 
 }

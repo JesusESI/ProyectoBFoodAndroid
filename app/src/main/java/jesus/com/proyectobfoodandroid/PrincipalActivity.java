@@ -1,18 +1,34 @@
 package jesus.com.proyectobfoodandroid;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
+import android.bluetooth.le.BluetoothLeScanner;
+import android.bluetooth.le.ScanCallback;
+import android.bluetooth.le.ScanResult;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import java.io.Serializable;
+import java.util.List;
 
+import jesus.com.proyectobfoodandroid.BLE.BLEService;
 import jesus.com.proyectobfoodandroid.Firebase.FirebaseManager;
 import jesus.com.proyectobfoodandroid.Objects.User;
 
@@ -57,7 +73,9 @@ public class PrincipalActivity extends AppCompatActivity implements View.OnClick
         userLog = new User(getIntent().getStringExtra("email"));
         emailUserLog = userLog.getEmail();
 
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -77,6 +95,8 @@ public class PrincipalActivity extends AppCompatActivity implements View.OnClick
             case R.id.info:
                 Toast.makeText(this, "Has pulsado el botón desplegar la información de la app.", Toast.LENGTH_LONG).show();
                 break;
+            case R.id.beacon:
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -87,9 +107,9 @@ public class PrincipalActivity extends AppCompatActivity implements View.OnClick
         switch (v.getId()) {
             case R.id.profileButton:
                 //Toast.makeText(this, "Ha elegido ver su perfil", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(PrincipalActivity.this, DatosUsuarioActivity.class);
-                intent.putExtra("userLog", emailUserLog);
-                startActivity(intent);
+                Intent intentUserProfile = new Intent(PrincipalActivity.this, DatosUsuarioActivity.class);
+                intentUserProfile.putExtra("userLog", emailUserLog);
+                startActivity(intentUserProfile);
                 break;
             case R.id.notificationButton:
                 Toast.makeText(this, "Ha elegido ver las notificaciones", Toast.LENGTH_LONG).show();
@@ -98,10 +118,14 @@ public class PrincipalActivity extends AppCompatActivity implements View.OnClick
                 Toast.makeText(this, "Ha elegido ver el ranking", Toast.LENGTH_LONG).show();
                 break;
             case R.id.achievementsButton:
-                Toast.makeText(this, "Ha elegido ver sus logros", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "Ha elegido ver sus logros", Toast.LENGTH_LONG).show();
+                Intent intentAchievements = new Intent(PrincipalActivity.this, LogrosActivity.class);
+                startActivity(intentAchievements);
                 break;
             case R.id.mapButton:
-                Toast.makeText(this, "Ha elegido ver la localizacion de los eventos", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "Ha elegido ver la localizacion de los eventos", Toast.LENGTH_LONG).show();
+                Intent intentMap = new Intent(PrincipalActivity.this, MapsActivity.class);
+                startActivity(intentMap);
                 break;
         }
     }

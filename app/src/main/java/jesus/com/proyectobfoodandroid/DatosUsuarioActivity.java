@@ -15,11 +15,11 @@ import jesus.com.proyectobfoodandroid.Objects.User;
 public class DatosUsuarioActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private TextView textApodo;
-    private TextView textAchievements;
-    private TextView textPosition;
-    private TextView textPoints;
-    private TextView textNotifications;
+    private EditText textApodo;
+    private EditText textAchievements;
+    private EditText textPosition;
+    private EditText textPoints;
+    private EditText textNotifications;
 
     private User userLogDatosUsuario;
 
@@ -33,14 +33,13 @@ public class DatosUsuarioActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Inicializamos los campos.
-        textApodo = (TextView) findViewById(R.id.textApodoData);
-        textAchievements = (TextView) findViewById(R.id.textAchievementsData);
-        textPosition = (TextView) findViewById(R.id.textPositionData);
-        textPoints = (TextView) findViewById(R.id.textPointsData);
-        textNotifications = (TextView) findViewById(R.id.textNotificationsData);
+        textApodo = (EditText) findViewById(R.id.textApodo);
+        textAchievements = (EditText) findViewById(R.id.textAchievements);
+        textPosition = (EditText) findViewById(R.id.textPosition);
+        textPoints = (EditText) findViewById(R.id.textPoints);
+        textNotifications = (EditText) findViewById(R.id.textNotifications);
 
         //Obtenermos el email del usuario logueado.
-        ;
         userLogDatosUsuario = new User(getIntent().getStringExtra("userLog"));
 
 
@@ -72,10 +71,10 @@ public class DatosUsuarioActivity extends AppCompatActivity {
     private void loadUserData(User userLogEmail) {
          Toast.makeText(DatosUsuarioActivity.this , userLogDatosUsuario.getEmail(), Toast.LENGTH_LONG).show();
         // Mostrar los datos en las distintas etiquetas.
-        this.textApodo.setText("Hola");
+        textApodo.setText(userLogDatosUsuario.getApodo());
 
 
-        setContentView(R.layout.activity_datos_usuario);
+        //setContentView(R.layout.activity_datos_usuario);
 
     }
 }
