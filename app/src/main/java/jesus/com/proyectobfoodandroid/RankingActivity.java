@@ -1,89 +1,93 @@
 package jesus.com.proyectobfoodandroid;
 
+import android.content.Intent;
+import android.graphics.Path;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.view.MotionEvent;
+import android.widget.Adapter;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import jesus.com.proyectobfoodandroid.Adapters.DatosUsuarioAdapter;
 import jesus.com.proyectobfoodandroid.Adapters.RankingAdapter;
 import jesus.com.proyectobfoodandroid.Firebase.FirebaseManager;
+import jesus.com.proyectobfoodandroid.Objects.OrderByPuntos;
 import jesus.com.proyectobfoodandroid.Objects.User;
 
-public class DatosUsuarioActivity extends AppCompatActivity {
+public class RankingActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
     private RecyclerView recyclerView;
-    private DatosUsuarioAdapter itemUserAdapter;
+    private List<User> listaUsuariosRanking;
+    private RankingAdapter rankingAdapter;
+    //private DatabaseReference dbReference;
     private FirebaseDatabase firebase;
-    private DatabaseReference dbReference;
-    private List<User> usuarioSelected;
+    private Query usersOrdered;
 
-    private User userLogDatosUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_datos_usuario);
+        setContentView(R.layout.activity_ranking);
 
-        // Inicializamos las toolbar.
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        //Obtenermos el email del usuario logueado.
-        userLogDatosUsuario = new User(getIntent().getStringExtra("email"));
-
-        usuarioSelected = new ArrayList<>();
-
-        // Creamos la query para obtener el usuario.
+        // Obtenemos las referencias a la base de datos.
         firebase = FirebaseManager.getFirebaseSingleton().getmDatabase();
-        dbReference = firebase.getReference("Usuarios");
+        usersOrdered = firebase.getReference("Usuarios").orderByChild("puntos");
+        // dbReference = firebase.getReference("Usuarios");
 
-        recyclerView = (RecyclerView) findViewById(R.id.dataUserLayout);
+
+        listaUsuariosRanking = new ArrayList();
+        recyclerView = (RecyclerView) findViewById(R.id.rankingList);
         recyclerView.setHasFixedSize(true);
 
         LinearLayoutManager linearManager = new LinearLayoutManager(this);
         linearManager.setOrientation(LinearLayoutManager.VERTICAL);
 
+        linearManager.setReverseLayout(true);
+        linearManager.setStackFromEnd(true);
+
         recyclerView.setLayoutManager(linearManager);
 
-        obtainUser();
+        obtainQuery();
+        //obtainList();
 
-        // Creamos adaptador
-        itemUserAdapter = new DatosUsuarioAdapter(usuarioSelected);
-        recyclerView.setAdapter(itemUserAdapter);
+        rankingAdapter = new RankingAdapter(listaUsuariosRanking);
+        recyclerView.setAdapter(rankingAdapter);
     }
 
-    public void obtainUser() {
-        dbReference.addChildEventListener(new ChildEventListener() {
+    private void obtainQuery() {
+        usersOrdered.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 HashMap usuario = (HashMap) dataSnapshot.getValue();
 
+                // Guardamos los datos del usuario obtenido en variables.
+                String apodo = (String) usuario.get("apodo");
+                String puntos = (String) usuario.get("puntos");
                 String email = (String) usuario.get("email");
 
-                if (email.equals(userLogDatosUsuario.getEmail())) {
-                    // TODO. Introducir todos los parametros.
-                    usuarioSelected.add(new User());
-                    itemUserAdapter.notifyDataSetChanged();
-                }
+                // Meter todos los datos del usuario cambiar constructor.
+                listaUsuariosRanking.add(new User( apodo, puntos, email));
+
+                rankingAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -106,5 +110,6 @@ public class DatosUsuarioActivity extends AppCompatActivity {
 
             }
         });
+
     }
 }

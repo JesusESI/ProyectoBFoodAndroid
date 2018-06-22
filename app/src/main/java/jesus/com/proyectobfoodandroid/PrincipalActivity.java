@@ -108,14 +108,16 @@ public class PrincipalActivity extends AppCompatActivity implements View.OnClick
             case R.id.profileButton:
                 //Toast.makeText(this, "Ha elegido ver su perfil", Toast.LENGTH_LONG).show();
                 Intent intentUserProfile = new Intent(PrincipalActivity.this, DatosUsuarioActivity.class);
-                intentUserProfile.putExtra("userLog", emailUserLog);
+                intentUserProfile.putExtra("email", emailUserLog);
                 startActivity(intentUserProfile);
                 break;
             case R.id.notificationButton:
                 Toast.makeText(this, "Ha elegido ver las notificaciones", Toast.LENGTH_LONG).show();
                 break;
             case R.id.rankingButton:
-                Toast.makeText(this, "Ha elegido ver el ranking", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "Ha elegido ver el ranking", Toast.LENGTH_LONG).show();
+                Intent intentRanking = new Intent(PrincipalActivity.this, RankingActivity.class);
+                startActivity(intentRanking);
                 break;
             case R.id.achievementsButton:
                 //Toast.makeText(this, "Ha elegido ver sus logros", Toast.LENGTH_LONG).show();

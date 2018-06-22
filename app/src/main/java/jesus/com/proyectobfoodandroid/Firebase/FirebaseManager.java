@@ -2,11 +2,15 @@ package jesus.com.proyectobfoodandroid.Firebase;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.internal.Storage;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +31,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -46,6 +52,7 @@ public class FirebaseManager {
     // Definimos las variables que contienen los servicios de Firebase.
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDatabase;
+    private FirebaseStorage mStorage;
 
     // UserLog.
     private String userLog;
@@ -64,6 +71,7 @@ public class FirebaseManager {
         // Inicializamos los servicios.
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
+        mStorage = FirebaseStorage.getInstance();
     }
 
     // Método que devuelve la única intancia que el servicio puede tener.
@@ -256,4 +264,7 @@ public class FirebaseManager {
         return eventos;
     }
 
+    public FirebaseStorage getmStorage() {
+        return mStorage;
+    }
 }
