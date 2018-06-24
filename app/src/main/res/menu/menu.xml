@@ -16,12 +16,5 @@
         app:showAsAction="always"
         />
 
-    <item
-        android:icon="@mipmap/ic_launcher"
-        android:title="beacon"
-        android:id="@+id/beacon"
-        app:showAsAction="always"
-        />
-
 
 </menu>

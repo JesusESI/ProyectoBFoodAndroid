@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -65,6 +66,12 @@ public class DatosUsuarioActivity extends AppCompatActivity {
 
 
         obtainUser();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_datosusuario, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     public void obtainUser() {

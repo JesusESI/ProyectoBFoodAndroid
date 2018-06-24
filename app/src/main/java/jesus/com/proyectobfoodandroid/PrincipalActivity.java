@@ -1,34 +1,16 @@
 package jesus.com.proyectobfoodandroid;
 
-import android.Manifest;
-import android.app.AlertDialog;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothManager;
-import android.bluetooth.le.BluetoothLeScanner;
-import android.bluetooth.le.ScanCallback;
-import android.bluetooth.le.ScanResult;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import java.util.List;
 
-import jesus.com.proyectobfoodandroid.BLE.BLEService;
 import jesus.com.proyectobfoodandroid.Firebase.FirebaseManager;
 import jesus.com.proyectobfoodandroid.Objects.User;
 
@@ -95,8 +77,6 @@ public class PrincipalActivity extends AppCompatActivity implements View.OnClick
             case R.id.info:
                 Toast.makeText(this, "Has pulsado el botón desplegar la información de la app.", Toast.LENGTH_LONG).show();
                 break;
-            case R.id.beacon:
-                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -112,7 +92,9 @@ public class PrincipalActivity extends AppCompatActivity implements View.OnClick
                 startActivity(intentUserProfile);
                 break;
             case R.id.notificationButton:
-                Toast.makeText(this, "Ha elegido ver las notificaciones", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "Ha elegido ver las notificaciones", Toast.LENGTH_LONG).show();
+                Intent intentNotificaciones = new Intent(PrincipalActivity.this, NotificacionesActivity.class);
+                startActivity(intentNotificaciones);
                 break;
             case R.id.rankingButton:
                 //Toast.makeText(this, "Ha elegido ver el ranking", Toast.LENGTH_LONG).show();

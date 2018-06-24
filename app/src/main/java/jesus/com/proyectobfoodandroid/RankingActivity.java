@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.widget.Adapter;
 
@@ -38,6 +40,7 @@ public class RankingActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<User> listaUsuariosRanking;
     private RankingAdapter rankingAdapter;
+    Toolbar toolbar;
     //private DatabaseReference dbReference;
     private FirebaseDatabase firebase;
     private Query usersOrdered;
@@ -47,6 +50,10 @@ public class RankingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
+
+        // Inicializamos las toolbar.
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         // Obtenemos las referencias a la base de datos.
         firebase = FirebaseManager.getFirebaseSingleton().getmDatabase();
@@ -71,6 +78,12 @@ public class RankingActivity extends AppCompatActivity {
 
         rankingAdapter = new RankingAdapter(listaUsuariosRanking);
         recyclerView.setAdapter(rankingAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_ranking, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void obtainQuery() {

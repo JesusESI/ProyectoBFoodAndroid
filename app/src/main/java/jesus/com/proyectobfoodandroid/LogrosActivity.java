@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +26,7 @@ import jesus.com.proyectobfoodandroid.Objects.Logro;
 public class LogrosActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
+    private Toolbar toolbar;
     private List<Logro> resultado;
     private LogroAdapter adaptador;
     private DatabaseReference dbReference;
@@ -35,6 +38,10 @@ public class LogrosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logros);
+
+        // Inicializamos las toolbar.
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         // Obtenemos las referencias a la base de datos.
         firebase = FirebaseManager.getFirebaseSingleton().getmDatabase();
@@ -55,6 +62,12 @@ public class LogrosActivity extends AppCompatActivity {
         // Creamos el objeto adaptador y lo insertamos en el recycler view.
         adaptador = new LogroAdapter(resultado);
         recyclerView.setAdapter(adaptador);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_logros, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void updateList() {
