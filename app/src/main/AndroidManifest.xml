@@ -58,7 +58,8 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".RankingActivity" />
-        <activity android:name=".NotificacionesActivity"></activity>
+        <activity android:name=".NotificacionesActivity" />
+        <activity android:name=".ConfirmarActivity"></activity>
     </application>
 
 </manifest>

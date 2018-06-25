@@ -94,6 +94,7 @@ public class PrincipalActivity extends AppCompatActivity implements View.OnClick
             case R.id.notificationButton:
                 //Toast.makeText(this, "Ha elegido ver las notificaciones", Toast.LENGTH_LONG).show();
                 Intent intentNotificaciones = new Intent(PrincipalActivity.this, NotificacionesActivity.class);
+                intentNotificaciones.putExtra("email", emailUserLog);
                 startActivity(intentNotificaciones);
                 break;
             case R.id.rankingButton:

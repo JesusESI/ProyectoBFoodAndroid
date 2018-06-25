@@ -176,6 +176,22 @@ public class FirebaseManager {
         return auth;
     }
 
+    public HashMap getUser(String email) {
+        List usuarios = readUsers();
+
+        HashMap user = null;
+
+        for (Object usuario : usuarios) {
+            HashMap aux = (HashMap) usuario;
+
+            if (aux.get("email").equals(email)) {
+                user = aux;
+            }
+        }
+
+        return user;
+    }
+
     public void saveUser(String nombre, String surname, String email, String usuario, String imagen) {
         // Método que guardará a los usuarios registrados en la base de datos además de autenticarlos.
         DatabaseReference ref = mDatabase.getReference("Usuarios");
@@ -193,7 +209,6 @@ public class FirebaseManager {
     }
 
     public List readUsers() {
-
             // Crearemos un eventListener para tener los datos continuamente actualizados en tiempo real.
             DatabaseReference ref = mDatabase.getReference("Usuarios");
             // Listener.
@@ -214,7 +229,6 @@ public class FirebaseManager {
                     Log.w(TAG, "Failed to read value.", databaseError.toException());
                 }
             });
-
         return usuarios;
     }
 
@@ -240,7 +254,7 @@ public class FirebaseManager {
         return logros;
     }
 
-    public ArrayList readEventos(Context c) {
+    public List readEventos() {
 
             // Crearemos un eventListener para tener los datos continuamente actualizados en tiempo real.
             DatabaseReference ref = mDatabase.getReference("Eventos");
