@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import jesus.com.proyectobfoodandroid.LoginActivity;
 import jesus.com.proyectobfoodandroid.MapsActivity;
+import jesus.com.proyectobfoodandroid.Objects.Notificacion;
 import jesus.com.proyectobfoodandroid.Objects.User;
 import jesus.com.proyectobfoodandroid.R;
 import jesus.com.proyectobfoodandroid.RegisterActivity;
@@ -61,6 +62,7 @@ public class FirebaseManager {
     ArrayList usuarios = new ArrayList();
     ArrayList logros = new ArrayList();
     ArrayList eventos = new ArrayList();
+    ArrayList notificacionesUser = new ArrayList();
 
     public FirebaseDatabase getmDatabase() {
         return mDatabase;
@@ -208,6 +210,20 @@ public class FirebaseManager {
         ref.push().setValue(nuevo);
     }
 
+    public void addNotificationUser(Notificacion noti) {
+        DatabaseReference ref = mDatabase.getReference("Notificaciones");
+
+        Map nuevaNotificacion = new HashMap();
+
+        nuevaNotificacion.put("emailUsuario", noti.getUsuarioNotificacion());
+        nuevaNotificacion.put("titulo", noti.getTitulo());
+        nuevaNotificacion.put("aceptado", noti.isAceptado());
+        nuevaNotificacion.put("contenido", noti.getContenido());
+
+        ref.push().setValue(nuevaNotificacion);
+
+    }
+
     public List readUsers() {
             // Crearemos un eventListener para tener los datos continuamente actualizados en tiempo real.
             DatabaseReference ref = mDatabase.getReference("Usuarios");
@@ -232,6 +248,38 @@ public class FirebaseManager {
         return usuarios;
     }
 
+    public List readNotificationsUser(final String email) {
+        DatabaseReference ref = mDatabase.getReference("Notificaciones");
+        // Listener.
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Devuelve un HashMap debemos recorrerlo y guardar los datos.
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    Log.d(TAG, data.getValue().toString());
+
+                    // Comprobamos el email del usuario
+                    HashMap aux = (HashMap) data.getValue();
+
+                    String emailNotificacion = (String) aux.get("emailUsuario");
+
+                    if (emailNotificacion.equals(email)) {
+                        notificacionesUser.add(data.getValue());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", databaseError.toException());
+            }
+        });
+        return notificacionesUser;
+    }
+
+
+
     public ArrayList readLogros() {
         if (logros.isEmpty()) {
             DatabaseReference ref = mDatabase.getReference("Logros");
@@ -255,7 +303,6 @@ public class FirebaseManager {
     }
 
     public List readEventos() {
-
             // Crearemos un eventListener para tener los datos continuamente actualizados en tiempo real.
             DatabaseReference ref = mDatabase.getReference("Eventos");
             // Listener.
@@ -275,6 +322,35 @@ public class FirebaseManager {
                     Log.w(TAG, "Failed to read value.", databaseError.toException());
                 }
             });
+        return eventos;
+    }
+
+    public ArrayList readEventoNotificacion(final String titulo) {
+        DatabaseReference ref = mDatabase.getReference("Eventos");
+
+        // Listener.
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Devuelve un HashMap debemos recorrerlo y guardar los datos.
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    Log.d(TAG, data.getValue().toString());
+                    HashMap aux = (HashMap) data.getValue();
+
+                    String nombreEvento = (String) aux.get("nombre");
+
+                    if (nombreEvento.equals(titulo)) {
+                        eventos.add(data.getValue());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", databaseError.toException());
+            }
+        });
         return eventos;
     }
 

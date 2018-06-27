@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EventoInfoActivity"
+    tools:layout_editor_absoluteY="25dp">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <TextView
+        android:id="@+id/textTituloEvento"
+        android:layout_width="324dp"
+        android:layout_height="67dp"
+        android:layout_marginBottom="36dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="19dp"
+        android:text="TextView"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="145dp"
+        android:layout_marginStart="145dp"
+        android:text="Descripcion"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/textDescripcionEvento"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTituloEvento" />
+
+    <TextView
+        android:id="@+id/textDescripcionEvento"
+        android:layout_width="317dp"
+        android:layout_height="110dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginStart="34dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="166dp"
+        android:layout_marginStart="166dp"
+        android:layout_marginTop="23dp"
+        android:text="Platos"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/textPlatosEvento"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textDescripcionEvento" />
+
+    <TextView
+        android:id="@+id/textPlatosEvento"
+        android:layout_width="317dp"
+        android:layout_height="111dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginStart="34dp"
+        android:text="enumeracion platos"
+        app:layout_constraintBottom_toTopOf="@+id/detallesButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <Button
+        android:id="@+id/detallesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="33dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="15dp"
+        android:text="Detalles "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textPlatosEvento" />
+
+</android.support.constraint.ConstraintLayout>

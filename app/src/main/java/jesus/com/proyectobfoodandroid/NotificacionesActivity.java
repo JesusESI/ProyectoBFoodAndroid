@@ -107,7 +107,7 @@ public class NotificacionesActivity extends AppCompatActivity {
 
         // Inicializar el recycler view.
         firebase = FirebaseManager.getFirebaseSingleton().getmDatabase();
-        dbReference = firebase.getReference("Usuarios");
+        dbReference = firebase.getReference("Notificaciones");
 
         listaNotificacionesUsuario = new ArrayList<>();
 
@@ -199,6 +199,7 @@ public class NotificacionesActivity extends AppCompatActivity {
                     // Modificamos las variables compartidas
                     editor.putString("titulo", notifyAux.getTitulo());
                     editor.putString("descripcion", notifyAux.getContenido());
+                    editor.putString("emailNotificacion", getIntent().getStringExtra("email"));
                     editor.commit();
 
                     notificationManager.notify(contadorNotificaciones, mBuilder.build());
@@ -325,13 +326,21 @@ public class NotificacionesActivity extends AppCompatActivity {
         dbReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                HashMap user = (HashMap) dataSnapshot.getValue();
+                HashMap notificacion = (HashMap) dataSnapshot.getValue();
 
-                if (user.get("email").equals(emailUser)) {
+                if (notificacion.get("emailUsuario").equals(emailUser)) {
                     // Leemos las notificaciones del usuario logueado.
-                    HashMap notificaciones = (HashMap)  user.get("notificaciones");
-                    //TODO. Añadir funcionalidad cuando el usuario tenga alguna notificacion.
 
+                    String usuario = (String) notificacion.get("usuario");
+                    String contenido = (String) notificacion.get("contenido");
+                    String titulo = (String) notificacion.get("titulo");
+                    boolean aceptado = (boolean) notificacion.get("aceptado");
+
+                    Notificacion nueva = new Notificacion(usuario, titulo, aceptado, contenido);
+
+                    listaNotificacionesUsuario.add(nueva);
+
+                    notificacionesAdapter.notifyDataSetChanged();
                 }
             }
 

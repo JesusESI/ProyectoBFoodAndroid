@@ -2,11 +2,13 @@ package jesus.com.proyectobfoodandroid.Objects;
 
 public class Notificacion {
 
+    private String usuarioNotificacion;
     private String titulo;
     private boolean aceptado;
     private String contenido;
 
-    public Notificacion(String titulo, boolean aceptado, String conteniido) {
+    public Notificacion(String usuario, String titulo, boolean aceptado, String contenido) {
+        this.usuarioNotificacion = usuario;
         this.titulo = titulo;
         this.aceptado = aceptado;
         this.contenido = contenido;
@@ -39,5 +41,13 @@ public class Notificacion {
 
     public void setContenido(String conteniido) {
         this.contenido = conteniido;
+    }
+
+    public String getUsuarioNotificacion() {
+        return usuarioNotificacion;
+    }
+
+    public void setUsuarioNotificacion(String usuarioNotificacion) {
+        this.usuarioNotificacion = usuarioNotificacion;
     }
 }

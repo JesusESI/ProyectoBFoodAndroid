@@ -1,8 +1,5 @@
 package jesus.com.proyectobfoodandroid;
 
-import android.content.Intent;
-import android.graphics.Path;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -11,28 +8,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MotionEvent;
-import android.widget.Adapter;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 import jesus.com.proyectobfoodandroid.Adapters.RankingAdapter;
 import jesus.com.proyectobfoodandroid.Firebase.FirebaseManager;
-import jesus.com.proyectobfoodandroid.Objects.OrderByPuntos;
 import jesus.com.proyectobfoodandroid.Objects.User;
 
 public class RankingActivity extends AppCompatActivity {

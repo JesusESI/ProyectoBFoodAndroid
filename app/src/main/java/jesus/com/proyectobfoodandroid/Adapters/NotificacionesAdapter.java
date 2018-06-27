@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import jesus.com.proyectobfoodandroid.DatosUsuarioActivity;
+import jesus.com.proyectobfoodandroid.EventoInfoActivity;
 import jesus.com.proyectobfoodandroid.Objects.Notificacion;
 import jesus.com.proyectobfoodandroid.Objects.User;
 import jesus.com.proyectobfoodandroid.R;
@@ -45,9 +46,9 @@ public class NotificacionesAdapter extends RecyclerView.Adapter<NotificacionesAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent datosEvento = new Intent(v.getContext(), DatosUsuarioActivity.class);
-                datosUsuario.putExtra("email", usuario.getEmail());
-                v.getContext().startActivity(datosUsuario);*/
+                Intent datosEvento = new Intent(v.getContext(), EventoInfoActivity.class);
+                datosEvento.putExtra("titulo", notificacion.getTitulo());
+                v.getContext().startActivity(datosEvento);
             }
         });
     }
