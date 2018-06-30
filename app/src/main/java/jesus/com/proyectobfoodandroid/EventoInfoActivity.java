@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.GoogleMap;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import jesus.com.proyectobfoodandroid.Firebase.FirebaseManager;
-import jesus.com.proyectobfoodandroid.Objects.Evento;
 
 import static android.content.ContentValues.TAG;
 
@@ -29,7 +28,7 @@ public class EventoInfoActivity extends AppCompatActivity implements View.OnClic
     private TextView textTituloEvento, textDescripcionEvento, textPlatosEvento;
     private Button detallesButton;
     private FirebaseDatabase mDatabase;
-
+    private Toolbar toolbar;
     // Nombre del evento mostrado.
     private String evento;
 
@@ -37,6 +36,12 @@ public class EventoInfoActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evento_info);
+
+        // Cargamos la toolbar.
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setTitle("Información evento");
 
         // Guardamos el nombre del evento.
         evento = getIntent().getStringExtra("titulo");

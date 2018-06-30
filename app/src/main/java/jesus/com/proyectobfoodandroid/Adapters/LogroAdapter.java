@@ -36,7 +36,7 @@ public class LogroAdapter extends RecyclerView.Adapter<LogroAdapter.LogroViewHol
         Logro logro = listaLogros.get(position);
         holder.nombreLogro.setText(logro.getNombre());
         holder.descripcionLogro.setText(logro.getDescripcion());
-        holder.puntosLogro.setText(logro.getPuntos());
+        holder.puntosLogro.setText(logro.getPuntos()+ " puntos");
     }
 
     @Override

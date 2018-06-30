@@ -42,6 +42,8 @@ public class LogrosActivity extends AppCompatActivity {
         // Inicializamos las toolbar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setTitle("Logros");
 
         // Obtenemos las referencias a la base de datos.
         firebase = FirebaseManager.getFirebaseSingleton().getmDatabase();

@@ -50,6 +50,8 @@ public class DatosComidaActivity extends AppCompatActivity {
         // Inicializamos las toolbar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setTitle("Plato");
 
         // Obtenemos el nombre de la comida seleccionada.
         comida = new Comida(getIntent().getExtras().getString("comida"));

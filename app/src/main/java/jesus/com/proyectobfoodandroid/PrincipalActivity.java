@@ -1,6 +1,8 @@
 package jesus.com.proyectobfoodandroid;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +29,9 @@ public class PrincipalActivity extends AppCompatActivity implements View.OnClick
     private User userLog;
     private String emailUserLog;
 
+    // Shared contexto.
+    SharedPreferences preferencias;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +40,10 @@ public class PrincipalActivity extends AppCompatActivity implements View.OnClick
         // Inicializamos las toolbar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Inicializamos las preferencias para obtener el email del login del usuario logueado.
+        preferencias = this.getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
+        emailUserLog = preferencias.getString("email", "email");
 
         // Inicializamos los botones.
         profileButton = (ImageButton) findViewById(R.id.profileButton);
@@ -50,12 +59,11 @@ public class PrincipalActivity extends AppCompatActivity implements View.OnClick
         achievementsButton.setOnClickListener(this);
         mapButton.setOnClickListener(this);
 
-
-        // Creamos el objeto Usuario del usuario logeado, si es la primera vez que se conecta.
-        userLog = new User(getIntent().getStringExtra("email"));
+        userLog = new User(emailUserLog);
         emailUserLog = userLog.getEmail();
 
-
+        // Prueba
+        //FirebaseManager.getFirebaseSingleton().updateUser(emailUserLog, "10");
     }
 
 
@@ -73,6 +81,7 @@ public class PrincipalActivity extends AppCompatActivity implements View.OnClick
                 Intent loginInstance = new Intent(PrincipalActivity.this, LoginActivity.class);
                 FirebaseManager.getFirebaseSingleton().logOut();
                 startActivity(loginInstance);
+                finish();
                 break;
             case R.id.info:
                 Toast.makeText(this, "Has pulsado el botón desplegar la información de la app.", Toast.LENGTH_LONG).show();

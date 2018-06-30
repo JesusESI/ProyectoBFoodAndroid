@@ -20,14 +20,13 @@
         android:id="@+id/imageUser"
         android:layout_width="wrap_content"
         android:layout_height="182dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="101dp"
-        android:layout_marginStart="101dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="31dp"
         app:layout_constraintBottom_toTopOf="@+id/textApodo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:srcCompat="@drawable/aux_user" />
 
     <TextView
@@ -35,80 +34,64 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
-        android:layout_marginEnd="163dp"
-        android:layout_marginStart="163dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginEnd="165dp"
+        android:layout_marginStart="166dp"
+        android:layout_marginTop="44dp"
         android:text="Apodo"
         android:textColor="@android:color/background_dark"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/textPosicion"
+        app:layout_constraintBottom_toTopOf="@+id/textPosicionRanking"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageUser" />
 
     <TextView
-        android:id="@+id/textPosicion"
+        android:id="@+id/textPosicionRanking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:layout_marginEnd="163dp"
         android:layout_marginStart="163dp"
-        android:layout_marginTop="20dp"
-        android:text="Posicion"
-        android:textColor="@android:color/background_dark"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/textPuntos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textApodo" />
-
-    <TextView
-        android:id="@+id/textPuntos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginEnd="163dp"
-        android:layout_marginStart="163dp"
-        android:layout_marginTop="20dp"
-        android:text="TextView"
-        android:textColor="@android:color/background_dark"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/textLogros"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPosicion" />
-
-    <TextView
-        android:id="@+id/textLogros"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginEnd="163dp"
-        android:layout_marginStart="163dp"
-        android:layout_marginTop="20dp"
-        android:text="Logros"
+        android:layout_marginTop="15dp"
+        android:text="Puntos"
         android:textColor="@android:color/background_dark"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/textNotificaciones"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPuntos" />
+        app:layout_constraintTop_toBottomOf="@+id/textApodo" />
 
     <TextView
         android:id="@+id/textNotificaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="163dp"
+        android:layout_marginStart="163dp"
+        android:layout_marginTop="20dp"
+        android:text="Noti.Aceptadas"
+        android:textColor="@android:color/background_dark"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/textNotificacionesNo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textPosicionRanking" />
+
+    <TextView
+        android:id="@+id/textNotificacionesNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
         android:layout_marginEnd="163dp"
         android:layout_marginStart="163dp"
         android:layout_marginTop="20dp"
-        android:text="Notificaciones"
+        android:text="Noti.noAceptadas"
         android:textColor="@android:color/background_dark"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textLogros" />
+        app:layout_constraintTop_toBottomOf="@+id/textNotificaciones" />
 
 
 </android.support.constraint.ConstraintLayout>

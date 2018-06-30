@@ -194,7 +194,7 @@ public class FirebaseManager {
         return user;
     }
 
-    public void saveUser(String nombre, String surname, String email, String usuario, String imagen) {
+    public void saveUser(String nombre, String surname, String email, String usuario, String imagen, String notificaciones, String notificacionesNoAceptadas, String puntos) {
         // Método que guardará a los usuarios registrados en la base de datos además de autenticarlos.
         DatabaseReference ref = mDatabase.getReference("Usuarios");
         // Soporta el tipo de datos Map <calve, valor>.
@@ -205,9 +205,46 @@ public class FirebaseManager {
         nuevo.put("email", email);
         nuevo.put("apodo", usuario);
         nuevo.put("imagen", imagen);
+        nuevo.put("notificaciones", notificaciones);
+        nuevo.put("notificacionesNoAceptadas", notificacionesNoAceptadas);
+        nuevo.put("puntos", puntos);
 
         // Guardamos dentro de usuarios el objeto.
         ref.push().setValue(nuevo);
+    }
+
+    public void updateUser(final String emailUsuario, final String puntos, final String notificaciones, final String notificacionesNoAceptadas) {
+        final DatabaseReference ref = mDatabase.getReference("Usuarios");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Devuelve un HashMap debemos recorrerlo y guardar los datos.
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+
+                    String key = data.getKey();
+                    Map auxUser = (HashMap) data.getValue();
+
+                    Map<String, Object> childUpdate = new HashMap<>();
+
+                    if (auxUser.get("email").equals(emailUsuario)) {
+
+                        auxUser.put("puntos", puntos);
+                        auxUser.put("notificaciones", notificaciones);
+                        auxUser.put("notificacionesNoAceptadas", notificacionesNoAceptadas);
+                        childUpdate.put(key, auxUser);
+
+                        ref.updateChildren(childUpdate);
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", databaseError.toException());
+            }
+        });
     }
 
     public void addNotificationUser(Notificacion noti) {

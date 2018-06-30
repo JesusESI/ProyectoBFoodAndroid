@@ -34,10 +34,11 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.RankingW
     public void onBindViewHolder(@NonNull RankingWiewHolder holder, int position) {
         final User usuario = listaUsuariosRanking.get(position);
 
-        // Obtener el uri de la imagen.
-        //holder.userImage.setImageURI(usuario.getUriImage());
+        int pos = listaUsuariosRanking.size() - position;
+
         holder.apodo.setText(usuario.getApodo());
         holder.puntos.setText(usuario.getPuntos());
+        holder.posicion.setText(String.valueOf(pos) + "º");
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +64,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.RankingW
         public RankingWiewHolder(View itemView) {
             super(itemView);
 
+            this.posicion = (TextView) itemView.findViewById(R.id.textPosicionRanking);
             this.apodo = (TextView) itemView.findViewById(R.id.textApodoRanking);
             this.puntos = (TextView) itemView.findViewById(R.id.textPuntosRanking);
         }

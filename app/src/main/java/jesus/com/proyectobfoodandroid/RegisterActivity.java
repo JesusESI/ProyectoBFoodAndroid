@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +13,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import jesus.com.proyectobfoodandroid.Firebase.FirebaseManager;
 
@@ -36,6 +34,10 @@ public class RegisterActivity extends AppCompatActivity {
     private String usuario;
     private String password;
     private String repeatPassword;
+    private String notificaciones = "0";
+    private String notificacionesNoAceptadas = "0";
+    private String puntos = "0";
+
 
 
     @Override
@@ -78,7 +80,8 @@ public class RegisterActivity extends AppCompatActivity {
                                     } else {
                                         Toast.makeText(RegisterActivity.this, "Authentication successs.", Toast.LENGTH_SHORT).show();
                                         // reguistramos el usuario como dato en firebaseDatabase.
-                                        FirebaseManager.getFirebaseSingleton().saveUser(nombre, apellidos, email, usuario, "IconoUsuario.png");
+                                        FirebaseManager.getFirebaseSingleton().saveUser(nombre, apellidos, email, usuario, "IconoUsuario.png",
+                                                notificaciones, notificacionesNoAceptadas, puntos);
                                         startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                                         finish();
                                     }

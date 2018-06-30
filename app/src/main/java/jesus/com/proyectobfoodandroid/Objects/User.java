@@ -13,6 +13,7 @@ import jesus.com.proyectobfoodandroid.Implementations.UserFirebaseImp;
 public class User implements  Comparable<User>{
 
     // Atributos.
+    private String key;
     private String nombre;
     private String apodo;
     private String posicion;
@@ -78,5 +79,37 @@ public class User implements  Comparable<User>{
 
         // Ordenamos a los usuarios según sus puntos en el ranking
         return new Integer(puntosA.compareTo(new Integer(puntosB)));
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getPosicion() {
+        return posicion;
+    }
+
+    public void setPosicion(String posicion) {
+        this.posicion = posicion;
+    }
+
+    public String getEventosAceptados() {
+        return eventosAceptados;
+    }
+
+    public void setEventosAceptados(String eventosAceptados) {
+        this.eventosAceptados = eventosAceptados;
+    }
+
+    public String getEventosNoAceptados() {
+        return eventosNoAceptados;
+    }
+
+    public void setEventosNoAceptados(String eventosNoAceptados) {
+        this.eventosNoAceptados = eventosNoAceptados;
     }
 }

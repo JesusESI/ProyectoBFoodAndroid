@@ -2,7 +2,6 @@ package jesus.com.proyectobfoodandroid;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
@@ -14,7 +13,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -30,7 +28,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -41,7 +38,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 import jesus.com.proyectobfoodandroid.Adapters.NotificacionesAdapter;
@@ -97,6 +93,8 @@ public class NotificacionesActivity extends AppCompatActivity {
         // Inicializamos las toolbar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setTitle("Notificaciones");
 
         // Inicializamos el notificationsManager
         notificationManager = NotificationManagerCompat.from(NotificacionesActivity.this);
@@ -164,7 +162,6 @@ public class NotificacionesActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Toast.makeText(this, "Escaneo desactivado.", Toast.LENGTH_LONG).show();
         controlEnabled = false;
         stopScanning();
     }
@@ -181,32 +178,33 @@ public class NotificacionesActivity extends AppCompatActivity {
             // Por cada beacon detectado hacemos las siguientes comprobaciones antes de crear una nueva notificacion.
             if (comprobarPertenenciaEventos(nombreBeaconDetectado)) {
                 if(!comprobarRedundanciaNotificacion(nombreBeaconDetectado)) {
-                    // Si estas dos condiciones se cumplen se debe crear una notificacion, diciendo que hay un nuevo evento cercano.
+                        // Si estas dos condiciones se cumplen se debe crear una notificacion, diciendo que hay un nuevo evento cercano.
 
-                    // PRUEBA.
-                    int icono = R.mipmap.icon_bfood;
-                    Intent intent = new Intent(NotificacionesActivity.this, ConfirmarActivity.class);
-                    PendingIntent pendingIntent = PendingIntent.getActivity(NotificacionesActivity.this, 0,intent, 0);
+                        int icono = R.mipmap.icon_bfood;
+                        Intent intent = new Intent(NotificacionesActivity.this, ConfirmarActivity.class);
+                        PendingIntent pendingIntent = PendingIntent.getActivity(NotificacionesActivity.this, 0, intent, 0);
 
-                    mBuilder = new NotificationCompat.Builder(getApplicationContext())
-                            .setContentIntent(pendingIntent)
-                            .setSmallIcon(icono)
-                            .setContentTitle(notifyAux.getTitulo())
-                            .setContentText(notifyAux.getContenido())
-                            .setVibrate(new long[] {100, 250, 100, 500})
-                            .setAutoCancel(true);
+                        mBuilder = new NotificationCompat.Builder(getApplicationContext())
+                                .setContentIntent(pendingIntent)
+                                .setSmallIcon(icono)
+                                .setContentTitle(notifyAux.getTitulo())
+                                .setContentText(notifyAux.getContenido())
+                                .setVibrate(new long[]{100, 250, 100, 500})
+                                .setAutoCancel(true);
 
-                    // Modificamos las variables compartidas
-                    editor.putString("titulo", notifyAux.getTitulo());
-                    editor.putString("descripcion", notifyAux.getContenido());
-                    editor.putString("emailNotificacion", getIntent().getStringExtra("email"));
-                    editor.commit();
+                        // Modificamos las variables compartidas
+                        editor.putString("titulo", notifyAux.getTitulo());
+                        editor.putString("descripcion", notifyAux.getContenido());
+                        editor.putString("emailNotificacion", getIntent().getStringExtra("email"));
+                        editor.putString("tipo", notifyAux.getTipoEvento());
+                        editor.commit();
 
-                    notificationManager.notify(contadorNotificaciones, mBuilder.build());
+                        notificationManager.notify(contadorNotificaciones, mBuilder.build());
 
-                    // Agregamos el beacon ya detectado para que no lo notifique mas.
-                    beaconsYaDetectados.add(nombreBeaconDetectado);
-                    contadorNotificaciones++;
+                        // Agregamos el beacon ya detectado para que no lo notifique mas.
+                        beaconsYaDetectados.add(nombreBeaconDetectado);
+                        contadorNotificaciones++;
+
                 }
             }
         }
@@ -224,7 +222,7 @@ public class NotificacionesActivity extends AppCompatActivity {
             if (beacon != null) {
                 if (beacon.equals(beaconAux.get("nombre"))) {
                     // Creamos el objeto notificacion aux.
-                    notifyAux = new Notificacion((String) eventoAux.get("nombre"), (String) eventoAux.get("descripcion"));
+                    notifyAux = new Notificacion((String) eventoAux.get("nombre"), (String) eventoAux.get("descripcion"), (String) eventoAux.get("tipo"));
                     aux = true;
                 }
             }

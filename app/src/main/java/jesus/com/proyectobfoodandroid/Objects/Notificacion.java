@@ -6,6 +6,7 @@ public class Notificacion {
     private String titulo;
     private boolean aceptado;
     private String contenido;
+    private String tipoEvento;
 
     public Notificacion(String usuario, String titulo, boolean aceptado, String contenido) {
         this.usuarioNotificacion = usuario;
@@ -14,9 +15,10 @@ public class Notificacion {
         this.contenido = contenido;
     }
 
-    public Notificacion(String titulo, String contenido) {
+    public Notificacion(String titulo, String contenido,  String tipo) {
         this.titulo = titulo;
         this.contenido = contenido;
+        this.tipoEvento = tipo;
     }
 
     public String getTitulo() {
@@ -49,5 +51,13 @@ public class Notificacion {
 
     public void setUsuarioNotificacion(String usuarioNotificacion) {
         this.usuarioNotificacion = usuarioNotificacion;
+    }
+
+    public String getTipoEvento() {
+        return tipoEvento;
+    }
+
+    public void setTipoEvento(String tipoEvento) {
+        this.tipoEvento = tipoEvento;
     }
 }

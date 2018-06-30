@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import jesus.com.proyectobfoodandroid.Adapters.ComidasAdapter;
-import jesus.com.proyectobfoodandroid.Adapters.LogroAdapter;
 import jesus.com.proyectobfoodandroid.Firebase.FirebaseManager;
 import jesus.com.proyectobfoodandroid.Objects.Comida;
 
@@ -44,6 +43,8 @@ public class ComidasActivity extends AppCompatActivity {
         // Inicializamos las toolbar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setTitle("Listado platos");
 
         // Obtenemos las referencias a la base de datos.
         firebase = FirebaseManager.getFirebaseSingleton().getmDatabase();

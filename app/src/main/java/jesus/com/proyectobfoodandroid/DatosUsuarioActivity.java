@@ -38,7 +38,7 @@ public class DatosUsuarioActivity extends AppCompatActivity {
     private Uri imagenUserUri;
 
     private ImageView imagenUsuario;
-    private TextView apodoTexto, posiciontexto, puntosTexto, logrosTexto, notificacionesTexto;
+    private TextView apodoTexto, puntosTexto, notificacionesNoTexto, notificacionesTexto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,8 @@ public class DatosUsuarioActivity extends AppCompatActivity {
         // Inicializamos las toolbar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setTitle("Usuario");
 
         //Obtenermos el email del usuario logueado.
         emailDatosUsuario = new User(getIntent().getStringExtra("email"));
@@ -58,12 +60,10 @@ public class DatosUsuarioActivity extends AppCompatActivity {
         firebaseStorage = FirebaseManager.getFirebaseSingleton().getmStorage();
 
         apodoTexto = findViewById(R.id.textApodo);
-        posiciontexto = findViewById(R.id.textPosicion);
-        puntosTexto = findViewById(R.id.textPuntos);
-        logrosTexto = findViewById(R.id.textLogros);
+        puntosTexto = findViewById(R.id.textPosicionRanking);
+        notificacionesNoTexto = findViewById(R.id.textNotificacionesNo);
         notificacionesTexto = findViewById(R.id.textNotificaciones);
         imagenUsuario = findViewById(R.id.imageUser);
-
 
         obtainUser();
     }
@@ -88,13 +88,17 @@ public class DatosUsuarioActivity extends AppCompatActivity {
                         String apodo = (String) usuario.get("apodo");
                         String puntos = (String) usuario.get("puntos");
                         String imagen = (String) usuario.get("imagen");
+                        String notiAceptadas = (String) usuario.get("notificaciones");
+                        String notiNoAceptadas = (String) usuario.get("notificacionesNoAceptadas");
+
 
                         // Obtener URI de la imagen del usuario.
                         obtainUri(imagen);
 
-                        apodoTexto.setText(apodo);
-                        puntosTexto.setText(puntos);
-
+                        apodoTexto.setText("Apodo: " + apodo);
+                        puntosTexto.setText("Puntos: " + puntos);
+                        notificacionesTexto.setText("Noti. aceptadas: " + notiAceptadas);
+                        notificacionesNoTexto.setText("Noti. no aceptadas: " + notiNoAceptadas);
                     }
                 }
             }
@@ -105,6 +109,7 @@ public class DatosUsuarioActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void obtainUri(String nombreImagen) {
 

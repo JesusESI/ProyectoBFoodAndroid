@@ -1,13 +1,14 @@
 package jesus.com.proyectobfoodandroid;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,9 +25,14 @@ public class LoginActivity extends AppCompatActivity {
     private EditText inputPassword;
     private Button signInButton;
     private Button signUpButton;
-    private ProgressBar progressBar;
 
-    private String email;
+    // CONTEXTO control.
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
+    // String emailLogUser.
+    private String emailLogUser;
+
 
 
     @Override
@@ -34,12 +40,15 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Inicializamos la shared preferences.
+        sharedPreferences = this.getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
         // Inicializamos los elementos de la ventana.
         inputEmail = (EditText) findViewById(R.id.textEmail);
         inputPassword = (EditText) findViewById(R.id.textPassword);
         signInButton = (Button) findViewById(R.id.signInButton);
         signUpButton = (Button) findViewById(R.id.signUpButton);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         // Si el usuario se ha logueado con anterioridad pasamos directamente al actiovity principal.
         if (FirebaseManager.getFirebaseSingleton().comprobarUsuario() == true) {
@@ -70,17 +79,16 @@ public class LoginActivity extends AppCompatActivity {
                             .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    // If sign in fails, display a message to the user. If sign in succeeds
-                                    // the auth state listener will be notified and logic to handle the
-                                    // signed in user can be handled in the listener.
-                                    progressBar.setVisibility(View.GONE);
+
                                     if (!task.isSuccessful()) {
                                         // there was an error
                                         Toast.makeText(LoginActivity.this, getString(R.string.authFailed), Toast.LENGTH_LONG).show();
                                     } else {
                                         Intent intent = new Intent(LoginActivity.this, PrincipalActivity.class);
-                                        // Pasamos al activity principal el email del usuario logeado.
-                                        intent.putExtra("email", email);
+                                        // Hacemos que el email del usuario logueado sea un shared preference.
+                                        editor.putString("email", email);
+                                        editor.commit();
+                                        //intent.putExtra("email", email);
                                         startActivity(intent);
                                         finish();
                                     }
@@ -101,12 +109,5 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        // terminamos la app.
-        finish();
     }
 }
