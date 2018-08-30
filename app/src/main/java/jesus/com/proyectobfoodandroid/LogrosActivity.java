@@ -59,7 +59,7 @@ public class LogrosActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearManager);
 
         // nObtenemos la lista de logros.
-        updateList();
+        obtainLogros();
 
         // Creamos el objeto adaptador y lo insertamos en el recycler view.
         adaptador = new LogroAdapter(resultado);
@@ -72,7 +72,7 @@ public class LogrosActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    private void updateList() {
+    private void obtainLogros() {
         dbReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

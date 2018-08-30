@@ -1,7 +1,9 @@
 package jesus.com.proyectobfoodandroid;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
@@ -43,6 +45,7 @@ import java.util.List;
 import jesus.com.proyectobfoodandroid.Adapters.NotificacionesAdapter;
 import jesus.com.proyectobfoodandroid.Firebase.FirebaseManager;
 import jesus.com.proyectobfoodandroid.Objects.Notificacion;
+import jesus.com.proyectobfoodandroid.Utils.NotificationUtils;
 
 public class NotificacionesActivity extends AppCompatActivity {
 
@@ -80,10 +83,12 @@ public class NotificacionesActivity extends AppCompatActivity {
     // Notificaciones
     private NotificationCompat.Builder mBuilder;
     private NotificationManagerCompat notificationManager;
+    private NotificationUtils mNotificationUtils;
     private int contadorNotificaciones = 1;
     private Notificacion notifyAux;
 
 
+    @TargetApi(Build.VERSION_CODES.O)
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +103,7 @@ public class NotificacionesActivity extends AppCompatActivity {
 
         // Inicializamos el notificationsManager
         notificationManager = NotificationManagerCompat.from(NotificacionesActivity.this);
+        mNotificationUtils = new NotificationUtils(this);
 
         // Inicializacion de objetos para compartir variables entre activitys.
         sharedPreferences = this.getSharedPreferences("misPreferencias", Context.MODE_PRIVATE);
@@ -162,12 +168,16 @@ public class NotificacionesActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        controlEnabled = false;
-        stopScanning();
+        // controlEnabled = false;
+        // stopScanning();
+        if (btScanner != null) {
+            stopScanning();
+        }
     }
 
     // Device scan callback.
     private ScanCallback leScanCallback = new ScanCallback() {
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
             //peripheralTextView.append("Device Name: " + result.getDevice().getName() + " rssi: " + result.getRssi() + " MAC: "+ result.getDevice().getAddress()+ "\n");
@@ -184,13 +194,15 @@ public class NotificacionesActivity extends AppCompatActivity {
                         Intent intent = new Intent(NotificacionesActivity.this, ConfirmarActivity.class);
                         PendingIntent pendingIntent = PendingIntent.getActivity(NotificacionesActivity.this, 0, intent, 0);
 
-                        mBuilder = new NotificationCompat.Builder(getApplicationContext())
+                        /*mBuilder = new NotificationCompat.Builder(getApplicationContext(), "com.jesuselvira.bfood.ANDROID")
                                 .setContentIntent(pendingIntent)
                                 .setSmallIcon(icono)
                                 .setContentTitle(notifyAux.getTitulo())
                                 .setContentText(notifyAux.getContenido())
                                 .setVibrate(new long[]{100, 250, 100, 500})
-                                .setAutoCancel(true);
+                                .setAutoCancel(true);*/
+
+                        Notification.Builder nb = mNotificationUtils.getBfoodChannelNotification(icono, pendingIntent, notifyAux);
 
                         // Modificamos las variables compartidas
                         editor.putString("titulo", notifyAux.getTitulo());
@@ -199,7 +211,8 @@ public class NotificacionesActivity extends AppCompatActivity {
                         editor.putString("tipo", notifyAux.getTipoEvento());
                         editor.commit();
 
-                        notificationManager.notify(contadorNotificaciones, mBuilder.build());
+                        // notificationManager.notify(contadorNotificaciones, mBuilder.build());
+                        mNotificationUtils.getManager().notify(contadorNotificaciones, nb.build());
 
                         // Agregamos el beacon ya detectado para que no lo notifique mas.
                         beaconsYaDetectados.add(nombreBeaconDetectado);

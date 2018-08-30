@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class RankingActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(linearManager);
 
-        obtainQuery();
+        obtainRanking();
         //obtainList();
 
         rankingAdapter = new RankingAdapter(listaUsuariosRanking);
@@ -76,7 +77,7 @@ public class RankingActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    private void obtainQuery() {
+    private void obtainRanking() {
         usersOrdered.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -89,6 +90,7 @@ public class RankingActivity extends AppCompatActivity {
 
                 // Meter todos los datos del usuario cambiar constructor.
                 listaUsuariosRanking.add(new User( apodo, puntos, email));
+                Collections.sort(listaUsuariosRanking);
 
                 rankingAdapter.notifyDataSetChanged();
             }

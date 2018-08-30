@@ -1,14 +1,7 @@
 package jesus.com.proyectobfoodandroid.Objects;
 
-import android.net.Uri;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-import java.io.Serializable;
-
-import jesus.com.proyectobfoodandroid.DAO.UserDao;
-import jesus.com.proyectobfoodandroid.Implementations.UserFirebaseImp;
 
 public class User implements  Comparable<User>{
 
@@ -18,18 +11,13 @@ public class User implements  Comparable<User>{
     private String apodo;
     private String posicion;
     private String email;
-    private String imagen;
     private String eventosAceptados;
     private String eventosNoAceptados;
     private String puntos;
-    private String logros;
-    private String notificaciones;
-    private UserDao userDao;
-    private Uri uriImage;
+
 
     public User(String email) {
         this.email = email;
-        this.userDao  = new UserFirebaseImp();
     }
 
     // Contructor Ranking.
@@ -47,14 +35,6 @@ public class User implements  Comparable<User>{
 
     public String getApodo() {
         return apodo;
-    }
-
-    public String getImagen() {
-        return imagen;
-    }
-
-    public Uri getUriImage() {
-        return uriImage;
     }
 
     public String getPuntos() {
@@ -78,7 +58,7 @@ public class User implements  Comparable<User>{
         Integer puntosB =   Integer.parseInt(this.getPuntos());
 
         // Ordenamos a los usuarios según sus puntos en el ranking
-        return new Integer(puntosA.compareTo(new Integer(puntosB)));
+        return new Integer(puntosB.compareTo(new Integer(puntosA)));
     }
 
     public String getKey() {
